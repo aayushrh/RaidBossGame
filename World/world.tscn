@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgs4nmwhs5xtt"]
-
-[ext_resource type="PackedScene" uid="uid://t47rnf46u4vi" path="res://team_mind.tscn" id="1_yyhln"]
-
-[node name="World" type="Node2D"]
-
-[node name="TeamMind" parent="." instance=ExtResource("1_yyhln")]

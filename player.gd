@@ -1,33 +1,41 @@
 extends CharacterBody2D
 
-@export var type = ""
-@export var spec = ""
-@export var state = RUN
-var teamM = null
-var tired = false
-enum{
-	RUN,
-	ATTACK,
-	ALLY
-}
+const ACCELERATION = 4000
+const MAX_SPEED = 40000;
+const FRICK = .9
+var playing = false
+var swang = false
 
-func _attack():
-	state = ATTACK
-	$Timer.start(5)
+func movement(acc, maxsped, fric, delta):
+	var input_vector = Vector2.ZERO
+	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	input_vector = input_vector.normalized()
+	if input_vector != Vector2.ZERO:
+		velocity = velocity.move_toward(input_vector * maxsped*delta, acc)
+	else:
+		velocity =velocity*fric
+	move_and_slide()
+	
+func playanimation(input,animation):
+	if(Input.is_action_just_pressed(input)):
+		$AnimationPlayer.play(animation)
+		playing = true
+		
 
-func _on_timer_timeout():
-	teamM.attackOver()
-	tired = true
-	$Timer2.start(3)
+func _physics_process(delta):
+	if(!swang):
+		playanimation("ui_select","swing")
+		playanimation("F","area_sweep")
+	else:
+		playanimation("ui_select","reverse_swing")
+	
+	
+	if(!playing):
+		movement(ACCELERATION,MAX_SPEED,FRICK,delta)
+	
+	
 
-func _process(delta):
-	if state == RUN:
-		$Label.text = "RUN"
-	elif state == ATTACK:
-		$Label.text = "ATTACK"
-	elif state == ALLY:
-		$Label.text = "ALLY"
-	$Label2.text = type
-
-func _on_timer_2_timeout():
-	tired = false
+func _on_animation_player_animation_finished(anim_name):
+	swang = anim_name == "swing"
+	playing = false
