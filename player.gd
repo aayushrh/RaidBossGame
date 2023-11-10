@@ -20,14 +20,5 @@ func _on_timer_timeout():
 	tired = true
 	$Timer2.start(3)
 
-func _process(delta):
-	if state == RUN:
-		$Label.text = "RUN"
-	elif state == ATTACK:
-		$Label.text = "ATTACK"
-	elif state == ALLY:
-		$Label.text = "ALLY"
-	$Label2.text = type
-
 func _on_timer_2_timeout():
 	tired = false

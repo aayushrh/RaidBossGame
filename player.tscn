@@ -1,32 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuxui73ftvyfp"]
+[gd_scene load_steps=2 format=3 uid="uid://cuxui73ftvyfp"]
 
 [ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="1_3erlc"]
-[ext_resource type="Script" path="res://player.gd" id="1_nhs1c"]
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_nhs1c")
 
 [node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_3erlc")
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="Label" type="Label" parent="."]
-offset_left = -33.0
-offset_top = 61.0
-offset_right = 57.0
-offset_bottom = 87.0
-text = "dwadaw"
-
-[node name="Timer2" type="Timer" parent="."]
-
-[node name="Label2" type="Label" parent="."]
-offset_left = 93.0
-offset_top = -24.0
-offset_right = 150.0
-offset_bottom = -1.0
-rotation = 1.5708
-text = "djwoja"
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgs4nmwhs5xtt"]
+[gd_scene load_steps=3 format=3 uid="uid://bgs4nmwhs5xtt"]
 
 [ext_resource type="PackedScene" uid="uid://t47rnf46u4vi" path="res://team_mind.tscn" id="1_yyhln"]
+[ext_resource type="PackedScene" uid="uid://b366bkenmisfq" path="res://user.tscn" id="2_6vh0b"]
 
 [node name="World" type="Node2D"]
 
 [node name="TeamMind" parent="." instance=ExtResource("1_yyhln")]
+
+[node name="player" parent="." instance=ExtResource("2_6vh0b")]
+position = Vector2(196, 265)
