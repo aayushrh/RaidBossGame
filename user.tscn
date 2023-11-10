@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b366bkenmisfq"]
+[gd_scene load_steps=11 format=3 uid="uid://b366bkenmisfq"]
 
 [ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="1_gcv7b"]
 [ext_resource type="Script" path="res://user.gd" id="1_kvxxb"]
@@ -23,6 +23,66 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.785398]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("swordpivot/sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.785398]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("swordpivot/sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, 35)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("swordpivot/sword/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Telegraph/Polygon2D2:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_i1c7u"]
@@ -73,11 +133,88 @@ tracks/0/keys = {
 "values": [0.785398, 1.8326, 1.8326, -2.35619]
 }
 
+[sub_resource type="Animation" id="Animation_vep57"]
+resource_name = "slash"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("swordpivot/sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.7, 1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.785398, -3.14159, -3.14159, -0.785398]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("swordpivot:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7, 1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.5708, -4.71239, -7.85398]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("swordpivot/sword:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.1, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2, 35), Vector2(-2, 35), Vector2(-2, 20), Vector2(-2, 35)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("swordpivot/sword/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Polygon2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Telegraph/Polygon2D2:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5nsr6"]
 _data = {
 "RESET": SubResource("Animation_17tkw"),
 "area_sweep": SubResource("Animation_i1c7u"),
 "reverse_swing": SubResource("Animation_i4win"),
+"slash": SubResource("Animation_vep57"),
 "swing": SubResource("Animation_47fc2")
 }
 
@@ -98,7 +235,8 @@ shape = SubResource("RectangleShape2D_beusy")
 rotation = 0.785398
 
 [node name="sword" type="CharacterBody2D" parent="swordpivot"]
-position = Vector2(-0.473064, -54.0933)
+position = Vector2(-2, 35)
+rotation = -0.785398
 scale = Vector2(1, 0.9)
 
 [node name="Sprite2D" type="Sprite2D" parent="swordpivot/sword"]
@@ -116,5 +254,14 @@ one_way_collision = true
 libraries = {
 "": SubResource("AnimationLibrary_5nsr6")
 }
+
+[node name="Telegraph" type="Area2D" parent="."]
+
+[node name="Polygon2D2" type="CollisionPolygon2D" parent="Telegraph"]
+polygon = PackedVector2Array(-10, 61, 38, 73, 80, 59, 101, 31, 115, 0, 102, -47, 81, -83, 36, -96, 3, -103, -40, -91, -74, -72, -85, -46, -84, -18, -85, -7, -85, -1, -57, -1, -33, 0, -33, -31, 27, -31, 31, -9, 31, -9, 32, 14, 30, 19, 30, 27, 18, 31)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 0.439216)
+polygon = PackedVector2Array(-10, 61, 38, 73, 80, 59, 101, 31, 115, 0, 102, -47, 81, -83, 36, -96, 3, -103, -40, -91, -74, -72, -85, -46, -84, -18, -85, -7, -85, -1, -57, -1, -33, 0, -33, -31, 27, -31, 31, -9, 31, -9, 32, 14, 30, 19, 30, 27, 18, 31)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

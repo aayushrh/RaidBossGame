@@ -4,6 +4,14 @@ extends CharacterBody2D
 @export var FRICK = 0.9
 var playing = false
 var swang = false
+var line = false
+
+func _ready():
+	$swordpivot/sword/CollisionShape2D.disabled = true
+	$swordpivot/sword.position = Vector2(-2, 35)
+	$swordpivot/sword.rotation_degrees = -45
+	$swordpivot.rotation_degrees = -450
+	$Polygon2D.visible = false
 
 func movement(delta):
 	var input_vector = Vector2.ZERO
@@ -22,19 +30,16 @@ func playanimation(input,animation):
 	if(Input.is_action_just_pressed(input)):
 		$AnimationPlayer.play(animation)
 		playing = true
+		line = true
+		velocity = Vector2.ZERO
 
 func _physics_process(delta):
-	if(!swang):
-		playanimation("attack","swing")
-		playanimation("special","area_sweep")
-	else:
-		playanimation("ui_select","reverse_swing")
+	playanimation("attack","slash")
+	playanimation("special","area_sweep")
 	
 	if(!playing):
 		movement(delta)
-	
-	
 
 func _on_animation_player_animation_finished(anim_name):
-	swang = anim_name == "swing"
 	playing = false
+
