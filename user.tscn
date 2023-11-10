@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://b366bkenmisfq"]
+
+[ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="1_gcv7b"]
+[ext_resource type="Script" path="res://user.gd" id="1_kvxxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beusy"]
+size = Vector2(120, 125)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lcyq7"]
+radius = 66.0
+height = 132.0
+
+[sub_resource type="Animation" id="Animation_17tkw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("swordpivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.785398]
+}
+
+[sub_resource type="Animation" id="Animation_i1c7u"]
+resource_name = "area_sweep"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("swordpivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1, 1.0001, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.785398, 1.8326, 1.8326, -7.06858, -7.06858, -5.49779]
+}
+
+[sub_resource type="Animation" id="Animation_i4win"]
+resource_name = "reverse_swing"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("swordpivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-2.35619, 1.8326, 1.8326, 0.785398]
+}
+
+[sub_resource type="Animation" id="Animation_47fc2"]
+resource_name = "swing"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("swordpivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.785398, 1.8326, 1.8326, -2.35619]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5nsr6"]
+_data = {
+"RESET": SubResource("Animation_17tkw"),
+"area_sweep": SubResource("Animation_i1c7u"),
+"reverse_swing": SubResource("Animation_i4win"),
+"swing": SubResource("Animation_47fc2")
+}
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_kvxxb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6.10352e-05, -9.15527e-05)
+scale = Vector2(0.5, 0.48)
+texture = ExtResource("1_gcv7b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -9.53674e-07)
+scale = Vector2(0.5, 0.48)
+shape = SubResource("RectangleShape2D_beusy")
+
+[node name="swordpivot" type="Node2D" parent="."]
+rotation = 0.785398
+
+[node name="sword" type="CharacterBody2D" parent="swordpivot"]
+position = Vector2(-0.473064, -54.0933)
+scale = Vector2(1, 0.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="swordpivot/sword"]
+position = Vector2(0, -28)
+scale = Vector2(0.125, 0.9)
+texture = ExtResource("1_gcv7b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="swordpivot/sword"]
+position = Vector2(0, -28)
+scale = Vector2(0.15, 0.9)
+shape = SubResource("CapsuleShape2D_lcyq7")
+one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5nsr6")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
