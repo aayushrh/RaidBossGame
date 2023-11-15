@@ -1,7 +1,8 @@
 extends Node2D
 
-@onready var Player = preload("res://player.tscn")
-var atypes = ["Beserker", "Rogue", "Archer"]
+@onready var Placeholder = preload("res://Players/placeholder.tscn")
+@onready var Rogue = preload("res://Players/rogue.tscn")
+var atypes = ["Rogue"]
 var stypes = ["Healer", "Alchemist"]
 
 var rng = RandomNumberGenerator.new()
@@ -16,17 +17,21 @@ enum{
 func _ready():
 	var num = rng.randi_range(1, 4)
 	for i in range(1.0, num + 1):
-		var player = Player.instantiate()
 		var num2 = rng.randi_range(1, 5)
+		var type = ""
 		if(num2 < i):
 			var num3 = rng.randi_range(0, stypes.size() - 1)
-			#player.type = stypes[num3]
+			type = stypes[num3]
 			#player.spec = "s"
 		else:
 			var num3 = rng.randi_range(0, atypes.size() - 1)
-			#player.type = atypes[num3]
+			type = atypes[num3]
 			#player.spec = "a"
+		var player = Placeholder.instantiate()
+		if type == "Rogue":
+			player = Rogue.instantiate()
 		player.global_position = Vector2(1000, 648*(i-1)/num + 648/(num*2))
+		player.user = get_parent().get_child(1)
 		add_child(player)
 
 #func _process(delta):
