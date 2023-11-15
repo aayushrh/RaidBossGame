@@ -3,8 +3,8 @@ extends Node2D
 @onready var Placeholder = preload("res://Players/placeholder.tscn")
 @onready var Rogue = preload("res://Players/rogue.tscn")
 @onready var Healer = preload("res://Players/healer.tscn")
-var atypes = ["Rogue", "Beserker", "Archer"]
-var stypes = ["Healer", "Alchemist"]
+var atypes = ["Beserker", "Archer"]
+var stypes = ["Healer"]
 
 var rng = RandomNumberGenerator.new()
 var attacking = false
@@ -21,6 +21,7 @@ func _ready():
 		var num2 = rng.randi_range(1, 5)
 		var type = ""
 		if(num2 < i):
+			print("e")
 			var num3 = rng.randi_range(0, stypes.size() - 1)
 			type = stypes[num3]
 			#player.spec = "s"
@@ -33,6 +34,7 @@ func _ready():
 			player = Rogue.instantiate()
 		if type == "Healer":
 			player = Healer.instantiate()
+			print("e2")
 		player.global_position = Vector2(1000, 648*(i-1)/num + 648/(num*2))
 		player.user = get_parent().get_child(1)
 		add_child(player)

@@ -58,7 +58,7 @@ func movement():
 	velocity *= FRICK
 	move_and_slide()
 	
-	var disp = get_global_mouse_position() - user.global_position
+	var disp = global_position - user.global_position
 	rotation_degrees = atan2(disp.y, disp.x) * 180/PI - 90
 
 func attackCheck():
