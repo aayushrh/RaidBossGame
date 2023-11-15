@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var Placeholder = preload("res://Players/placeholder.tscn")
 @onready var Rogue = preload("res://Players/rogue.tscn")
-var atypes = ["Rogue"]
+@onready var Healer = preload("res://Players/healer.tscn")
+var atypes = ["Rogue", "Beserker", "Archer"]
 var stypes = ["Healer", "Alchemist"]
 
 var rng = RandomNumberGenerator.new()
@@ -30,6 +31,8 @@ func _ready():
 		var player = Placeholder.instantiate()
 		if type == "Rogue":
 			player = Rogue.instantiate()
+		if type == "Healer":
+			player = Healer.instantiate()
 		player.global_position = Vector2(1000, 648*(i-1)/num + 648/(num*2))
 		player.user = get_parent().get_child(1)
 		add_child(player)

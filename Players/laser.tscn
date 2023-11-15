@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4hbkwf6aq4bn"]
+
+[ext_resource type="Script" path="res://laser.gd" id="1_jq6b7"]
+
+[node name="laser" type="RayCast2D"]
+position = Vector2(125, 54)
+script = ExtResource("1_jq6b7")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(66, 21)
+default_color = Color(1, 1, 0, 0.109804)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
