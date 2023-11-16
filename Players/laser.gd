@@ -20,7 +20,7 @@ func _physics_process(delta):
 	if(duration>2.5):
 		$Line2D.width+=.5
 	else:
-		$Line2D.width-=.5
+		$Line2D.width+=.5
 	
 	duration-=delta
 	if(duration<=0):
