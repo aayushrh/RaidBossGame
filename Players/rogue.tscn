@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cln2xesx2ugms"]
+[gd_scene load_steps=11 format=3 uid="uid://m4k7wadefeb0"]
 
-[ext_resource type="Script" path="res://user.gd" id="1_cdmak"]
-[ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="2_a402e"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_beusy"]
-size = Vector2(120, 125)
+[ext_resource type="Script" path="res://Players/rogue.gd" id="1_1eet0"]
+[ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="2_u81ud"]
+[ext_resource type="Script" path="res://hitbox.gd" id="3_ojjqm"]
+[ext_resource type="Script" path="res://Players/HitboxA.gd" id="4_smwk1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lcyq7"]
 radius = 66.0
@@ -58,7 +57,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(1, 0.5)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -72,35 +71,10 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Telegraph/Polygon2D2:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Polygon2D:color")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_671u1"]
 resource_name = "slash"
 length = 2.0
-step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -147,7 +121,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.1, 0.7, 1.7, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, -1), Vector2(1, -1), Vector2(1, 1)]
+"values": [Vector2(1, 0.5), Vector2(1, -0.5), Vector2(1, -0.5), Vector2(1, 0.5)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -161,30 +135,6 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Telegraph/Polygon2D2:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Polygon2D:color")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.8, 0.81),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.266667), Color(1, 0, 0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4do4c"]
 _data = {
@@ -192,22 +142,20 @@ _data = {
 "slash": SubResource("Animation_671u1")
 }
 
-[node name="player" type="CharacterBody2D"]
-script = ExtResource("1_cdmak")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewaqo"]
+size = Vector2(45, 45)
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(1, 0, 0, 0)
-polygon = PackedVector2Array(-123, -22, -118, -41, -110, -61, -100, -76, -86, -90, -70, -103, -51, -114, -32, -121, -15, -125, 4, -127, 22, -125, 44, -118, 60, -111, 78, -99, 93, -86, 105, -70, 114, -54, 120, -34, 123, -15, 125.062, 1.49931, 125, 24, 31, 8, 31, -31, -31, -31, -31, -7)
+[sub_resource type="CircleShape2D" id="CircleShape2D_2eq4r"]
+
+[node name="Rogue" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_1eet0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-6.10352e-05, -9.15527e-05)
-scale = Vector2(0.5, 0.48)
-texture = ExtResource("2_a402e")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -9.53674e-07)
-scale = Vector2(0.5, 0.48)
-shape = SubResource("RectangleShape2D_beusy")
+scale = Vector2(0.35, 0.336)
+texture = ExtResource("2_u81ud")
 
 [node name="swordpivot" type="Node2D" parent="."]
 rotation = 1.5708
@@ -215,11 +163,15 @@ rotation = 1.5708
 [node name="sword" type="CharacterBody2D" parent="swordpivot"]
 position = Vector2(24, 26)
 rotation = 0.174533
+scale = Vector2(1, 0.5)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("3_ojjqm")
 
 [node name="Sprite2D" type="Sprite2D" parent="swordpivot/sword"]
 position = Vector2(0, -28)
 scale = Vector2(0.125, 0.9)
-texture = ExtResource("2_a402e")
+texture = ExtResource("2_u81ud")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="swordpivot/sword"]
 position = Vector2(0, -28)
@@ -227,14 +179,68 @@ scale = Vector2(0.15, 0.9)
 shape = SubResource("CapsuleShape2D_lcyq7")
 one_way_collision = true
 
-[node name="Telegraph" type="Area2D" parent="."]
-
-[node name="Polygon2D2" type="CollisionPolygon2D" parent="Telegraph"]
-visible = false
-polygon = PackedVector2Array(-120, -13, -101, -70, -65, -102, -28, -118, 16, -118, 50, -109, 78, -87, 98, -62, 115, -36, 124, -10, 123, -10, 31, -12, 31, -31, -34, -31, -34, -14)
-disabled = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_4do4c")
 }
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_ewaqo")
+
+[node name="Slash" type="Node" parent="."]
+
+[node name="CooldownSlashTimer" type="Timer" parent="Slash"]
+
+[node name="Knife" type="Node" parent="."]
+
+[node name="CooldownKnifeTimer" type="Timer" parent="Knife"]
+
+[node name="Backstab" type="Node" parent="."]
+
+[node name="AppearBackstabTimer" type="Timer" parent="Backstab"]
+one_shot = true
+
+[node name="CooldownBackstabTimer" type="Timer" parent="Backstab"]
+one_shot = true
+
+[node name="AttackBackstabTimer" type="Timer" parent="Backstab"]
+one_shot = true
+
+[node name="SilentClaw" type="Node" parent="."]
+
+[node name="AppearSilentClawTimer" type="Timer" parent="SilentClaw"]
+one_shot = true
+
+[node name="AttackSilentClawTimer" type="Timer" parent="SilentClaw"]
+one_shot = true
+
+[node name="CooldownSilentClawTimer" type="Timer" parent="SilentClaw"]
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_smwk1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_2eq4r")
+disabled = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="Slash/CooldownSlashTimer" to="." method="_on_cooldown_slash_timer_timeout"]
+[connection signal="timeout" from="Knife/CooldownKnifeTimer" to="." method="_on_cooldown_knife_timer_timeout"]
+[connection signal="timeout" from="Backstab/AppearBackstabTimer" to="." method="_on_appear_backstab_timer_timeout"]
+[connection signal="timeout" from="Backstab/CooldownBackstabTimer" to="." method="_on_cooldown_backstab_timer_timeout"]
+[connection signal="timeout" from="Backstab/AttackBackstabTimer" to="." method="_on_attack_backstab_timer_timeout"]
+[connection signal="timeout" from="SilentClaw/AppearSilentClawTimer" to="." method="_on_appear_silent_claw_timer_timeout"]
+[connection signal="timeout" from="SilentClaw/AttackSilentClawTimer" to="." method="_on_attack_silent_claw_timer_timeout"]
+[connection signal="timeout" from="SilentClaw/CooldownSilentClawTimer" to="." method="_on_cooldown_silent_claw_timer_timeout"]

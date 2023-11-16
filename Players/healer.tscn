@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://clq3x8w5tjp7u"]
+
+[ext_resource type="Script" path="res://Players/healer.gd" id="1_l6aku"]
+[ext_resource type="PackedScene" uid="uid://ccnmqw3sburf4" path="res://Players/placeholder.tscn" id="1_oou1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljsau"]
+size = Vector2(43, 43)
+
+[node name="Healer" type="CharacterBody2D"]
+script = ExtResource("1_l6aku")
+circleDistance = null
+ACCELERATION = null
+FRICK = null
+health = null
+maxMP = null
+MPregen = null
+LaserMPCost = null
+HealMPCost = null
+BarrierMPCost = null
+BuffAuraMPCost = null
+
+[node name="Sprite2D" parent="." instance=ExtResource("1_oou1b")]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ljsau")
+
+[node name="Heal" type="Node" parent="."]
+
+[node name="CooldownHealTimer" type="Timer" parent="Heal"]
+
+[node name="Laser" type="Node" parent="."]
+
+[node name="CooldownLaserTimer" type="Timer" parent="Laser"]
+
+[node name="Barrier" type="Node" parent="."]
+
+[node name="CooldowBarrierTimer" type="Timer" parent="Barrier"]
+
+[node name="BuffAura" type="Node" parent="."]
+
+[node name="CooldowBuffAuraTimer" type="Timer" parent="BuffAura"]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
