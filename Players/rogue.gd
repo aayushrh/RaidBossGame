@@ -1,12 +1,7 @@
-extends CharacterBody2D
+extends PlayerSuper
 
 @onready var Knife = preload("res://Players/knife.tscn")
 
-@export var ACCELERATION = 40
-@export var FRICK = 0.9
-@export var user : Node
-@export var health = 10
-@export var circleDistance = 150
 @export var slashCooldown = 2
 @export var knifeCooldown = 5
 @export var backstabCooldown = 10
@@ -15,7 +10,6 @@ extends CharacterBody2D
 @export var silentClawSpeed = 10
 @export var silentClawDuration = 3
 var playing = false
-var posAway = Vector2.ZERO
 var can_backstab = true
 var can_knife = true
 var can_slash = true
@@ -24,7 +18,6 @@ var state = RUN
 var slashTimer = 0
 var rng = RandomNumberGenerator.new()
 var line : Node
-var closeToPlayer = false
 
 enum{
 	RUN,
@@ -42,24 +35,6 @@ func _ready():
 
 func mag(v):
 	return sqrt(pow(v.x, 2) + pow(v.y, 2))
-
-func movement():
-	var dir = Vector2.ZERO
-	if posAway == Vector2.ZERO:
-		dir = ((user.global_position) - global_position).normalized()
-		var toUser = ((user.global_position) - global_position)
-		if mag(toUser) <= circleDistance and !closeToPlayer:
-			var angle = atan2(dir.y, dir.x) + PI/2
-			dir = Vector2(cos(angle), sin(angle))
-	else:
-		dir = (global_position - posAway).normalized()
-	
-	velocity += dir * ACCELERATION
-	velocity *= FRICK
-	move_and_slide()
-	
-	var disp = global_position - user.global_position
-	rotation_degrees = atan2(disp.y, disp.x) * 180/PI - 90
 
 func attackCheck():
 	if can_silentClaw:

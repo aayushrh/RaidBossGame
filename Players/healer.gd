@@ -1,16 +1,8 @@
-extends CharacterBody2D
+extends PlayerSuper
 
 @onready var Laser = preload("res://Players/laser.tscn")
 
-@export var circleDistance = 300
-@export var user : Node2D
-@export var ACCELERATION = 40
-@export var FRICK = 0.9
-@export var health = 10
-
 var state = RUN 
-var closeToPlayer = false
-var posAway = Vector2.ZERO
 
 enum{
 	RUN,
@@ -32,28 +24,9 @@ func test():
 func mag(v):
 	return sqrt(pow(v.x, 2) + pow(v.y, 2))
 
-func movement():
-	var dir = Vector2.ZERO
-	if posAway == Vector2.ZERO:
-		dir = ((user.global_position) - global_position).normalized()
-		var toUser = ((user.global_position) - global_position)
-		if mag(toUser) <= circleDistance and !closeToPlayer:
-			var angle = atan2(dir.y, dir.x) + PI/2
-			dir = Vector2(cos(angle), sin(angle))
-	else:
-		dir = (global_position - posAway).normalized()
-	
-	velocity += dir * ACCELERATION
-	velocity *= FRICK
-	move_and_slide()
-	
-	var disp = global_position - user.global_position
-	rotation_degrees = atan2(disp.y, disp.x) * 180/PI - 90
-
 func _process(delta):
 	if state == RUN:
 		movement()
-		
 
 func _on_hurtbox_area_entered(area):
 	posAway = area.global_position
