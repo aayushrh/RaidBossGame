@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://iskvg7ihcpdk"]
+
+[ext_resource type="Script" path="res://Players/healBall.gd" id="1_phh2u"]
+[ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="2_uxk81"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74v0f"]
+size = Vector2(36, 36)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tkkpa"]
+radius = 551.058
+
+[node name="HealBall" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_phh2u")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_uxk81")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_74v0f")
+
+[node name="PlayerFinder" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerFinder"]
+shape = SubResource("CircleShape2D_tkkpa")
+
+[connection signal="body_entered" from="PlayerFinder" to="." method="_on_player_finder_body_entered"]
