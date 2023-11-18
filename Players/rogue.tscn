@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://m4k7wadefeb0"]
+[gd_scene load_steps=12 format=3 uid="uid://m4k7wadefeb0"]
 
 [ext_resource type="Script" path="res://Players/rogue.gd" id="1_1eet0"]
 [ext_resource type="Texture2D" uid="uid://brgufd781s1l3" path="res://icon.svg" id="2_u81ud"]
@@ -147,6 +147,8 @@ size = Vector2(45, 45)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2eq4r"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5w0g"]
+
 [node name="Rogue" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 8
@@ -193,6 +195,14 @@ collision_mask = 16
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_ewaqo")
 
+[node name="Buffbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buffbox"]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_ewaqo")
+
 [node name="Slash" type="Node" parent="."]
 
 [node name="CooldownSlashTimer" type="Timer" parent="Slash"]
@@ -232,10 +242,14 @@ script = ExtResource("4_smwk1")
 shape = SubResource("CircleShape2D_2eq4r")
 disabled = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o5w0g")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="area_entered" from="Buffbox" to="." method="_on_buffbox_area_entered"]
 [connection signal="timeout" from="Slash/CooldownSlashTimer" to="." method="_on_cooldown_slash_timer_timeout"]
 [connection signal="timeout" from="Knife/CooldownKnifeTimer" to="." method="_on_cooldown_knife_timer_timeout"]
 [connection signal="timeout" from="Backstab/AppearBackstabTimer" to="." method="_on_appear_backstab_timer_timeout"]

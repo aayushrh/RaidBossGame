@@ -3,8 +3,8 @@ extends Node2D
 @onready var Placeholder = preload("res://Players/placeholder.tscn")
 @onready var Rogue = preload("res://Players/rogue.tscn")
 @onready var Healer = preload("res://Players/healer.tscn")
-var atypes = ["Rogue", "Beserker", "Archer"]
-var stypes = ["Healer", "Alchemist"]
+var atypes = ["Rogue"]
+var stypes = ["Healer"]
 
 var rng = RandomNumberGenerator.new()
 var attacking = false

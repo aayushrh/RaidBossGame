@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cmqsfp3xxwkp4"]
+
+[node name="Shield" type="Line2D"]
+points = PackedVector2Array(-46, -3, -47, -34, -15, -50, 21, -58, 55, -45, 54, -4, 53, 25, 35, 56, -5, 49, -43, 44, -43, 16)

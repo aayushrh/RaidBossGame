@@ -1,4 +1,5 @@
 extends PlayerSuper
+class_name Rogue
 
 @onready var Knife = preload("res://Players/knife.tscn")
 
@@ -52,7 +53,7 @@ func attackCheck():
 		if mag(toUser) <= 50:
 			slash()
 	
-func _physics_process(delta):
+func _process(delta):
 	if(!playing):
 		if state == RUN:
 			movement()
@@ -116,10 +117,19 @@ func _on_hurtbox_area_exited(area):
 	posAway = Vector2.ZERO
 
 func _on_hurtbox_body_entered(body):
-	health -= body.dmg
-	print("hit")
+	if shield == null or body.dmg < 0:
+		health -= body.dmg
+	else:
+		health -= body.dmg/2
+	if body.dmg <= 0:
+		body.queue_free()
 	if health <= 0:
 		queue_free()
+
+"""Buffs"""
+
+func _on_buffbox_area_entered(area):
+	add_buff(area.buff)
 
 """Slash Attack Timers"""
 
@@ -153,7 +163,6 @@ func _on_appear_silent_claw_timer_timeout():
 	state = SILENTCLAW
 	$Hitbox/CollisionShape2D.disabled = false
 	$SilentClaw/AttackSilentClawTimer.start(silentClawDuration)
-	print("e")
 
 func _on_attack_silent_claw_timer_timeout():
 	state = RUN
@@ -165,3 +174,5 @@ func _on_attack_silent_claw_timer_timeout():
 
 func _on_cooldown_silent_claw_timer_timeout():
 	can_silentClaw = true
+	
+

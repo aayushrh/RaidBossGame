@@ -10,7 +10,7 @@ extends CharacterBody2D
 var playing = false
 var swang = false
 var line = false
-var dmgTick = 0
+var dmgTick = 0.0
 var timer = 0
 var dashing = false
 
@@ -49,8 +49,8 @@ func movement(delta):
 	
 func playanimation(input,animation):
 	timer += 1
-	if timer >= 60 and dmgTick > 0:
-		health -= dmgTick
+	if timer >= 1 and dmgTick > 0:
+		health -= dmgTick/60
 		timer = 0
 	if(Input.is_action_just_pressed(input)):
 		$AnimationPlayer.play(animation)
