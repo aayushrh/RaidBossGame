@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://brkpvava34s62"]
+
+[ext_resource type="Script" path="res://Knife.gd" id="1_7rvs5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bb0cv"]
+radius = 25.0
+height = 158.0
+
+[node name="FlyingSlash" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_7rvs5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bb0cv")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(0, 94)
+points = PackedVector2Array(-93, -78, -58, -105, -29, -117, 1, -117, 27, -117, 48, -111, 71, -92, 89, -72)

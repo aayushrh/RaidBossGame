@@ -27,8 +27,8 @@ func _physics_process(delta):
 	else:
 		temp = -target_position.length()
 		$Line2D.set_point_position(1,target_position-$Line2D.position)
-	$Area2D/CollisionShape2D.shape.a = Vector2.ZERO
-	$Area2D/CollisionShape2D.shape.b = Vector2(1,temp-1)
+	$Lazer/Laser.shape.a = Vector2.ZERO
+	$Lazer/Laser.shape.b = Vector2(1,temp-1)
 	if(duration>1.5):
 		$Line2D.width*=1+2*delta
 	else:
